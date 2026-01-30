@@ -28,7 +28,7 @@ class ChatRequest(BaseModel):
 app = FastAPI(title="BrainBot API")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # dev only
+    allow_origins=["*"],  
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -36,6 +36,10 @@ app.add_middleware(
 
 
 username = None
+
+#  ------------
+#  | Subjects |
+#  ------------
 Capitals = {
     "usa": "Washington, D.C.",
     "united states": "Washington, D.C.",
@@ -53,6 +57,55 @@ Capitals = {
     "brazil": "Brasília",
     "australia": "Canberra",
 }
+
+
+Physics = {
+    "force": "A force is a push or pull that can change an object's motion or shape.",
+    "motion": "Motion is the change in position of an object over time.",
+    "velocity": "Velocity is the speed of an object in a specific direction.",
+    "acceleration": "Acceleration is the rate at which velocity changes over time.",
+    "gravity": "Gravity is the force that attracts objects with mass toward each other.",
+    "mass": "Mass is the amount of matter in an object.",
+    "weight": "Weight is the force of gravity acting on an object.",
+    "energy": "Energy is the ability to do work.",
+    "kinetic energy": "Kinetic energy is the energy an object has due to its motion.",
+    "potential energy": "Potential energy is stored energy based on an object's position or condition.",
+    "work": "Work is done when a force causes an object to move a distance.",
+    "power": "Power is the rate at which work is done.",
+    "momentum": "Momentum is the product of an object's mass and velocity.",
+    "friction": "Friction is a force that resists motion between two surfaces in contact.",
+    "electricity": "Electricity is the flow of electric charge.",
+    "current": "Electric current is the flow of electric charge through a conductor.",
+    "voltage": "Voltage is the electrical potential difference between two points.",
+    "resistance": "Resistance is the opposition to the flow of electric current.",
+    "wave": "A wave is a disturbance that transfers energy through space or matter.",
+    "frequency": "Frequency is the number of wave cycles per second.",
+    "atom": "An atom is the smallest unit of matter that retains the properties of an element."
+}
+
+
+
+
+
+
+
+Biology = {
+    "cell": "A cell is the basic structural and functional unit of all living organisms.",
+    "dna": "DNA is the molecule that carries genetic information used in growth, development, and reproduction.",
+    "photosynthesis": "Photosynthesis is the process by which plants use sunlight, carbon dioxide, and water to make glucose and oxygen.",
+    "mitosis": "Mitosis is the process by which a cell divides to produce two identical daughter cells.",
+    "meiosis": "Meiosis is a type of cell division that produces four genetically different sex cells.",
+    "osmosis": "Osmosis is the movement of water across a semi-permeable membrane from low solute concentration to high solute concentration.",
+    "enzyme": "An enzyme is a protein that speeds up chemical reactions in living cells.",
+    "ecosystem": "An ecosystem is a community of living organisms interacting with their physical environment.",
+    "homeostasis": "Homeostasis is the ability of an organism to maintain a stable internal environment.",
+    "evolution": "Evolution is the change in traits of populations over generations through natural selection.",
+    "respiration": "Respiration is the process by which cells convert glucose into energy.",
+    "chlorophyll": "Chlorophyll is the green pigment in plants that absorbs light for photosynthesis."
+}
+
+#----------------------------------------------------------------------------------------------------------------------------------------
+
 
 
 def get_bot_response(user_message: str) -> str:
@@ -113,11 +166,17 @@ def get_bot_response(user_message: str) -> str:
                 return "I can only solve simple arithmetic offline. Try a simpler calculation."
             
         #Science
-        elif any(word in msg_lower for word in ["physics", "chemistry", "biology", "photosynthesis", "gravity"]):
-            if "photosynthesis" in msg_lower:
-                return "Photosynthesis is the process by which plants use sunlight to convert carbon dioxide and water into glucose and oxygen."
-            elif "gravity" in msg_lower:
-                return "Gravity is a force that attracts objects with mass toward each other. On Earth, it gives weight to objects."
+        elif any(term in msg_lower for term in Physics):
+            for term, definition in Physics.items():
+                    if term in msg_lower:
+                        return definition
+            
+            
+        elif any(term in msg_lower for term in Biology):
+            for term, definition in Biology.items():
+                if term in msg_lower:
+                    return definition + "Another One!"
+            
             else:
                 return "I know some basic science facts, but my AI brain online can give more detailed explanations."
             
@@ -126,8 +185,9 @@ def get_bot_response(user_message: str) -> str:
         elif "capital" in msg_lower:
             for country, capital in Capitals.items():
                 if country in msg_lower:
-                    return f"The capital of{country.title} is {capital}. "
-                return "I know the capitals of many countries. Go ahead, Ask"
+                     display_country = country.upper() if country in ["usa", "uk"] else country.title()
+                     return f"The capital of {display_country} is {capital}."
+            return "I know the capitals of many countries. Go ahead, Ask"
         
         elif any(word in msg_lower for word in ["war", "history", "who", "when", "wwii","wwi"]):
             if "napoleon" in msg_lower:
@@ -147,7 +207,7 @@ def get_bot_response(user_message: str) -> str:
         #News    
         elif any(word in msg_lower for word in ["news", "local"]):
             return (
-        "Here are some news sources:\n"
+                "Here are some news sources:\n"
         "• Google News: https://news.google.com\n"
         "• CNN: https://www.cnn.com\n"
         "• BBC: https://www.bbc.com/news"
