@@ -36,6 +36,23 @@ app.add_middleware(
 
 
 username = None
+Capitals = {
+    "usa": "Washington, D.C.",
+    "united states": "Washington, D.C.",
+    "india": "New Delhi",
+    "france": "Paris",
+    "germany": "Berlin",
+    "italy": "Rome",
+    "spain": "Madrid",
+    "canada": "Ottawa",
+    "japan": "Tokyo",
+    "china": "Beijing",
+    "uk": "London",
+    "united kingdom": "London",
+    "mexico": "Mexico City",
+    "brazil": "Brasília",
+    "australia": "Canberra",
+}
 
 
 def get_bot_response(user_message: str) -> str:
@@ -79,13 +96,7 @@ def get_bot_response(user_message: str) -> str:
             return f"Nice to meet you, {user_name}!"
         
         
-        
-        
-        
-        
-        
-        
-        
+
         
         
         
@@ -112,39 +123,24 @@ def get_bot_response(user_message: str) -> str:
             
 
         #History
+        elif "capital" in msg_lower:
+            for country, capital in Capitals.items():
+                if country in msg_lower:
+                    return f"The capital of{country.title} is {capital}. "
+                return "I know the capitals of many countries. Go ahead, Ask"
         
-        COUNTRY_CAPITALS = {
-    "usa": "Washington, D.C.",
-    "united states": "Washington, D.C.",
-    "india": "New Delhi",
-    "france": "Paris",
-    "germany": "Berlin",
-    "italy": "Rome",
-    "spain": "Madrid",
-    "canada": "Ottawa",
-    "japan": "Tokyo",
-    "china": "Beijing",
-    "uk": "London",
-    "united kingdom": "London",
-    "mexico": "Mexico City",
-    "brazil": "Brasília",
-    "australia": "Canberra",
-}
-       
-        
-        
-        
-        
-        elif any(word in msg_lower for word in ["war", "history", "who", "when", "wwii",]):
+        elif any(word in msg_lower for word in ["war", "history", "who", "when", "wwii","wwi"]):
             if "napoleon" in msg_lower:
                 return "Napoleon Bonaparte was a French military leader and emperor who lived from 1769 to 1821."
             elif "wwii" in msg_lower or "world war 2" in msg_lower:
-                return "World War II lasted from 1939 to 1945 and involved most of the world’s nations."
+                return "World War II (1939–1945) was a global conflict that pitted the Axis Powers (Germany, Italy, Japan) against the Allies (Great Britain, the United States, the Soviet Union, China). It was the deadliest war in history, resulting in an estimated 60-80 million deaths, including the state-sponsored genocide of the Holocaust. The conflict ended with the defeat of the Axis powers and reshaped the modern world, leading to the creation of the United Nations and setting the stage for the Cold War."
             elif "civil war" in msg_lower:
                 return "The American Civil War lasted from 1861 to 1865 between the Union and the Confederacy."
+            elif "wwi" in msg_lower:
+                return " World War I (1914–1918) was a global struggle between the Allied Powers (led by France, Britain, and Russia) and the Central Powers (led by Germany and Austria-Hungary). Triggered by the assassination of Archduke Franz Ferdinand, the conflict became infamous for its grueling trench warfare and the first major use of tanks and chemical weapons. The war ended with an armistice on November 11, 1918, resulting in over 16 million deaths and the collapse of four major empires."
             else:
                 return "I can answer basic history questions, but my AI brain online can provide more details."
-        elif any(word in msg_lower for word in ["capital", "history", "who", "when", "wwii",]):
+        
             
 
 
