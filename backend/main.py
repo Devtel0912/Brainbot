@@ -78,6 +78,20 @@ def get_bot_response(user_message: str) -> str:
             user_name = clean_message.split("my name is")[-1].strip().title()
             return f"Nice to meet you, {user_name}!"
         
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
 
         #Mathematics 
         elif any(char.isdigit() for char in clean_message) and any(op in msg_lower for op in ["+", "-", "*", "/", "calculate", "solve"]):
@@ -98,7 +112,30 @@ def get_bot_response(user_message: str) -> str:
             
 
         #History
-        elif any(word in msg_lower for word in ["war", "history", "who", "when", "wwii"]):
+        
+        COUNTRY_CAPITALS = {
+    "usa": "Washington, D.C.",
+    "united states": "Washington, D.C.",
+    "india": "New Delhi",
+    "france": "Paris",
+    "germany": "Berlin",
+    "italy": "Rome",
+    "spain": "Madrid",
+    "canada": "Ottawa",
+    "japan": "Tokyo",
+    "china": "Beijing",
+    "uk": "London",
+    "united kingdom": "London",
+    "mexico": "Mexico City",
+    "brazil": "Brasília",
+    "australia": "Canberra",
+}
+       
+        
+        
+        
+        
+        elif any(word in msg_lower for word in ["war", "history", "who", "when", "wwii",]):
             if "napoleon" in msg_lower:
                 return "Napoleon Bonaparte was a French military leader and emperor who lived from 1769 to 1821."
             elif "wwii" in msg_lower or "world war 2" in msg_lower:
@@ -107,6 +144,7 @@ def get_bot_response(user_message: str) -> str:
                 return "The American Civil War lasted from 1861 to 1865 between the Union and the Confederacy."
             else:
                 return "I can answer basic history questions, but my AI brain online can provide more details."
+        elif any(word in msg_lower for word in ["capital", "history", "who", "when", "wwii",]):
             
 
 
