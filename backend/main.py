@@ -59,6 +59,24 @@ Capitals = {
 }
 
 
+States_of_US = [
+    "Alabama", "Alaska", "Arizona", "Arkansas", "California",
+    "Colorado", "Connecticut", "Delaware", "Florida", "Georgia",
+    "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa",
+    "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland",
+    "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri",
+    "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey",
+    "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio",
+    "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island", "South Carolina",
+    "South Dakota", "Tennessee", "Texas", "Utah", "Vermont",
+    "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
+]
+
+
+
+
+
+
 Physics = {
     "force": "A force is a push or pull that can change an object's motion or shape.",
     "motion": "Motion is the change in position of an object over time.",
@@ -188,6 +206,11 @@ def get_bot_response(user_message: str) -> str:
                      display_country = country.upper() if country in ["usa", "uk"] else country.title()
                      return f"The capital of {display_country} is {capital}."
             return "I know the capitals of many countries. Go ahead, Ask"
+        elif "states" in msg_lower:
+            state_list = ", ".join(s.title() for s in States_of_US.keys())
+            return f"Here are some U.S. states: {state_list}"
+
+
         
         elif any(word in msg_lower for word in ["war", "history", "who", "when", "wwii","wwi"]):
             if "napoleon" in msg_lower:
