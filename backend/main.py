@@ -72,6 +72,7 @@ States_of_US = [
     "Virginia", "Washington", "West Virginia", "Wisconsin", "Wyoming"
 ]
 
+count = len(States_of_US)
 
 
 
@@ -199,7 +200,7 @@ def get_bot_response(user_message: str) -> str:
                 return "I know some basic science facts, but my AI brain online can give more detailed explanations."
             
 
-        #History
+       # World Countries and US states
         elif "capital" in msg_lower:
             for country, capital in Capitals.items():
                 if country in msg_lower:
@@ -207,11 +208,11 @@ def get_bot_response(user_message: str) -> str:
                      return f"The capital of {display_country} is {capital}."
             return "I know the capitals of many countries. Go ahead, Ask"
         elif "states" in msg_lower:
-            state_list = ", ".join(s.title() for s in States_of_US.keys())
-            return f"Here are some U.S. states: {state_list}"
+            state_list = ", ".join(s.title() for s in States_of_US)
+            return f"Here are some U.S. states: {state_list}" + f"As you can see, there are {count} states "  
 
 
-        
+         #History
         elif any(word in msg_lower for word in ["war", "history", "who", "when", "wwii","wwi"]):
             if "napoleon" in msg_lower:
                 return "Napoleon Bonaparte was a French military leader and emperor who lived from 1769 to 1821."
