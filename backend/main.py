@@ -1,24 +1,24 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from openai import OpenAI
+import google.generativeai as genai
 import os
+import uvicorn
 from dotenv import load_dotenv
+
 
 # Load environment variables from .env
 load_dotenv()
 
 # Read your Groq API key
-api_key = os.environ.get("GROQ_API_KEY")
+api_key = os.environ.get("GEMINI_API_KEY")
 
 # Initialize OpenAI client for Groq API if API key exists
 if api_key:
-    client = OpenAI(
-        api_key=api_key,
-        base_url="https://api.groq.com/openai/v1"
-    )
+    genai.configure(api_key=api_key)
+    model = genai.GenerativeModel("gemini-1.5-flash")
 else:
-    client = None  # fallback to local responses
+    model = None  # fallback to local responses
 
 # Pydantic model for incoming requests
 class ChatRequest(BaseModel):
@@ -75,7 +75,15 @@ States_of_US = [
 count = len(States_of_US)
 
 
-
+Family = {
+    "Sudeep Telang" : "Father",
+    "Deepa Telang"  : "Mother",
+    "Dev Telang" : "Son and My Creator",
+    "Diya Telang": "Sister",
+    "Sachin Telang": "Uncle",
+    "Arpana Telang" : "GrandMother",
+    "Sudhir Telang" : "GrandFather"
+}
 
 
 Physics = {
@@ -136,29 +144,17 @@ def get_bot_response(user_message: str) -> str:
     clean_message = user_message.strip()
     msg_lower = clean_message.lower()
 
-    if client:
+    if model:
         try:
-            messages = [
-                {
-                    "role": "system",
-                    "content": (
-                        "You are BrainBot, a helpful and knowledgeable AI assistant. "
-                        "Explain math step-by-step. Explain science clearly. "
-                        "Answer history questions with accurate facts. "
-                        "Be concise, clear, and friendly."
-                    )
-                },
-                {"role": "user", "content": clean_message}
-            ]
-            
-            chat_completion = client.chat.completions.create(
-                model="llama-3.3-70b-versatile",
-                messages=messages,
-                stream=False,
+            response = model.generate_content(
+                f" You are Brainbot, A helpful AI chatbot..\nUser: {clean_message}"
             )
-            return chat_completion.choices[0].message.content
+            return response.text
         except Exception as e:
-            return f"Sorry, API request failed. ({str(e)})"
+            print("Gemini error:", e)
+            
+            
+            
     else:
         if any(greet in msg_lower for greet in ["hello", "hi", "hey"]):
             return "Hello! I am BrainBot. How are you today?"
@@ -170,7 +166,9 @@ def get_bot_response(user_message: str) -> str:
         
 
         
-        
+        #Family
+        elif "family" in msg_lower:
+            return f"Here is the Telang Family: {Family}"
         
         
         
@@ -259,4 +257,11 @@ async def chat(request: ChatRequest):
 
 @app.get("/")
 def root():
-    return {"status": "BrainBot API is running"}
+    return {"status": "BrainBot API is running 🚀"}
+
+
+
+
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
