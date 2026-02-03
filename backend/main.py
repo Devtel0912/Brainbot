@@ -167,7 +167,15 @@ def get_bot_response(user_message: str) -> str:
         
         #Family
         elif "family" in msg_lower:
-            return f"Here is the Telang Family: {Family}"
+            # Get just the names (keys) from the dictionary
+            family_names = list(Family.keys())
+            # Join them into a string separated by commas
+            names_str = ", ".join(family_names)
+            return f"Here is the Telang Family: {names_str}"
+        elif "creator" in msg_lower:
+            return f"My Creator is Dev Telang, {Family['Dev Telang']}"
+                    
+
         
         
         
