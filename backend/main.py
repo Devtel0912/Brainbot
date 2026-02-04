@@ -77,7 +77,7 @@ count = len(States_of_US)
 Family = {
     "Sudeep Telang" : "Father",
     "Deepa Telang"  : "Mother",
-    "Dev Telang" : "Son and My Creator",
+    "Dev Telang" : "Son, KSU Senior Student, 23 years old, Software Devloper, and My Creator",
     "Diya Telang": "Sister",
     "Sachin Telang": "Uncle",
     "Arpana Telang" : "GrandMother",
@@ -173,7 +173,7 @@ def get_bot_response(user_message: str) -> str:
             names_str = ", ".join(family_names)
             return f"Here is the Telang Family: {names_str}"
         elif "creator" in msg_lower:
-            return f"My Creator is Dev Telang, {Family['Dev Telang']}"
+            return f"My Father is Dev Telang, {Family['Dev Telang']}"
                     
 
         
@@ -214,7 +214,7 @@ def get_bot_response(user_message: str) -> str:
             return "I know the capitals of many countries. Go ahead, Ask"
         elif "states" in msg_lower:
             state_list = ", ".join(s.title() for s in States_of_US)
-            return f"Here are some U.S. states: {state_list}" + f"As you can see, there are {count} states "  
+            return f"Here are some U.S. states: {state_list}:" + f" As you can see, there are {count} states "  
 
 
          #History
