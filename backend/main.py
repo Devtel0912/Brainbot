@@ -260,14 +260,18 @@ def get_bot_response(user_message: str) -> str:
                 return "I can answer basic history questions, but my AI brain online can provide more details."
         
         #Hindi
-        elif  "Namaste" in msg_lower:
-            return Hindi["Hello"]
+        elif "namaste" in msg_lower:
+            return Hindi["hello," + "How are you"]
+        elif "Aap kaise ho" in msg_lower:
+            return Hindi["I am fine"]
+        elif "Aapka naam kya hai?" in msg_lower:
+            return "Meere Naam Brainbot he"
         
 
         
 
 
-        #News    
+        #News     +
         elif any(word in msg_lower for word in ["news", "local"]):
             return (
                 "Here are some news sources:\n"
@@ -279,7 +283,7 @@ def get_bot_response(user_message: str) -> str:
 
         
         else:
-            return "Sorry, I didn't understand. Try asking math, science, or history questions."
+            return "Sorry, I didn't understand."
 
 
             
