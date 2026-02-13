@@ -113,8 +113,8 @@ Physics = {
 
 
 Hindi = {
-    "Hello" : "Namaste",
-    "How are you": "Aap kaise ho?",
+    "hello" : "Namaste",
+    "how are you": "Aap kaise ho?",
     "I am fine": "Main theek hoon.",
     "What is your name": "Aapka naam kya hai?",
     "My name is Dev": "Mera naam Dev hai.",
@@ -261,10 +261,10 @@ def get_bot_response(user_message: str) -> str:
         
         #Hindi
         elif "namaste" in msg_lower:
-            return Hindi["hello," + "How are you"]
-        elif "Aap kaise ho" in msg_lower:
-            return Hindi["I am fine"]
-        elif "Aapka naam kya hai?" in msg_lower:
+            return Hindi["hello"]
+        elif "aap kaise ho" in msg_lower:
+            return "Main theek hoon."
+        elif "aapka naam kya hai" in msg_lower:
             return "Meere Naam Brainbot he"
         
 
