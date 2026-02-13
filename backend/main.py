@@ -36,9 +36,9 @@ app.add_middleware(
 
 username = None
 
-#  ------------
-#  | Subjects |
-#  ------------
+#   ------------
+#|  Data Subjects |
+#   ------------
 Capitals = {
     "usa": "Washington, D.C.",
     "united states": "Washington, D.C.",
@@ -108,6 +108,35 @@ Physics = {
     "frequency": "Frequency is the number of wave cycles per second.",
     "atom": "An atom is the smallest unit of matter that retains the properties of an element."
 }
+
+
+
+
+Hindi = {
+    "Hello" : "Namaste",
+    "How are you": "Aap kaise ho?",
+    "I am fine": "Main theek hoon.",
+    "What is your name": "Aapka naam kya hai?",
+    "My name is Dev": "Mera naam Dev hai.",
+    "Good morning": "Shubh prabhat",
+    "Good night": "Shubh ratri",
+    "Thank you": "Dhanyavaad",
+    "Bye": "Alvida"
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -230,7 +259,12 @@ def get_bot_response(user_message: str) -> str:
             else:
                 return "I can answer basic history questions, but my AI brain online can provide more details."
         
-            
+        #Hindi
+        elif  "Namaste" in msg_lower:
+            return Hindi["Hello"]
+        
+
+        
 
 
         #News    
@@ -249,7 +283,7 @@ def get_bot_response(user_message: str) -> str:
 
 
             
-
+ 
 
    
          
